@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\Api\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\AuthenticationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +17,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::get('/unauthorized', function () {
+    return response()->json([
+        'message' => 'Unauthorized.'
+    ], 401);
+})->name('login');
+Route::post('/login', [AuthenticationController::class, 'login']);
+Route::post('/register', [AuthenticationController::class, 'register']);
+Route::post('/logout', [AuthenticationController::class, 'logout'])->middleware('auth:sanctum');
+
+Route::apiResource('users', UserController::class)->middleware('auth:sanctum');
+Route::apiResource('posts', PostController::class)->middleware('auth:sanctum');
