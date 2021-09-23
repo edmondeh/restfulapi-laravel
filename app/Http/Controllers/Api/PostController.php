@@ -48,7 +48,7 @@ class PostController extends Controller
         {
             return response()->json([
                 'success' => true,
-                'message' => "Post with $post->name created sucessfully.",
+                'message' => "Post with name: $post->title created sucessfully.",
                 'data' => $post
             ], 201);
         }

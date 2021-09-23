@@ -55,6 +55,13 @@ class User extends Authenticatable
     ];
 
     /**
+     * The attributes that should be visible in arrays.
+     *
+     * @var array
+     */
+    protected $visible = ['id', 'name', 'email'];
+
+    /**
      * The attributes that should be hidden for serialization.
      *
      * @var array

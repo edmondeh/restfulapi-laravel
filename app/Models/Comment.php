@@ -27,6 +27,13 @@ class Comment extends Model
     protected $fillable = ['user_id', 'body'];
 
     /**
+     * The attributes that should be visible in arrays.
+     *
+     * @var array
+     */
+    protected $visible = ['id', 'user_id', 'body'];
+
+    /**
      * Relationship: author
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

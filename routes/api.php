@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -32,3 +33,4 @@ Route::post('/logout', [AuthenticationController::class, 'logout'])->middleware(
 
 Route::apiResource('users', UserController::class)->middleware('auth:sanctum');
 Route::apiResource('posts', PostController::class)->middleware('auth:sanctum');
+Route::apiResource('/posts/{post}/comments', CommentController::class)->middleware('auth:sanctum');

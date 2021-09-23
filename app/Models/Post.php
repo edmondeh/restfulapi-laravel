@@ -38,6 +38,13 @@ class Post extends Model
     protected $fillable = ['title', 'body', 'user_id'];
 
     /**
+     * The attributes that should be visible in arrays.
+     *
+     * @var array
+     */
+    protected $visible = ['id', 'title', 'body'];
+
+    /**
      * Relationship: author
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

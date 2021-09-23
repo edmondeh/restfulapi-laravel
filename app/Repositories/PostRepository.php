@@ -6,22 +6,28 @@ use App\Interfaces\PostRepositoryInterface;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
+use function PHPUnit\Framework\isNan;
 
 class PostRepository implements PostRepositoryInterface
 {
     public function all()
     {
-        return Post::all()->map->format();
+        return Post::all();
     }
 
     public function allWithUser()
     {
-        return Post::with('user')->get()->map->formatWithUser();
+        return Post::with('user')
+            ->get()
+            ->makeVisible('user');
     }
 
     public function findById($id)
     {
-        return Post::where('id', $id)->with('user')->get()->map->formatWithUser();
+        return Post::where('id', $id)
+            ->with('user')
+            ->get()
+            ->makeVisible('user');
     }
 
     public function store($request)
@@ -38,7 +44,7 @@ class PostRepository implements PostRepositoryInterface
 
         //$post->user()->associate($user);
 
-        return $post->formatWithUser();
+        return $post->makeVisible('user');
     }
 
     public function update(Request $request, $id)
@@ -47,11 +53,16 @@ class PostRepository implements PostRepositoryInterface
 
         $post->update($request->all());
 
-        return $post->formatWithUser();
+        return $post->makeVisible('user');
     }
 
     public function delete($id)
     {
-        return Post::destroy($id);
+        $post = Post::find($id);
+        if (is_null($post))
+            return null;
+
+//        return Post::destroy($id);
+        return $post->delete();
     }
 }
